@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { ImageBackground, View, Text, StyleSheet, TouchableOpacity, TextInput, Platform } from 'react-native';
+import { Button } from 'react-native-elements';
 
 const API_URL = Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
 
-const AuthScreen = () => {
+const AuthScreen = ({navigation}) => {
 
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
@@ -42,6 +43,7 @@ const AuthScreen = () => {
     }
 
     const onSubmitHandler = () => {
+        navigation.navigate('Content');
         const payload = {
             email,
             name,
@@ -89,6 +91,7 @@ const AuthScreen = () => {
                         {!isLogin && <TextInput style={styles.input} placeholder="Name" onChangeText={setName}></TextInput>}
                         <TextInput secureTextEntry={true} style={styles.input} placeholder="Password" onChangeText={setPassword}></TextInput>
                         <Text style={[styles.message, {color: isError ? 'red' : 'green'}]}>{message ? getMessage() : null}</Text>
+                        {/* <TouchableOpacity style={styles.button} onPress={onSubmitHandler}> */}
                         <TouchableOpacity style={styles.button} onPress={onSubmitHandler}>
                             <Text style={styles.buttonText}>Done</Text>
                         </TouchableOpacity>

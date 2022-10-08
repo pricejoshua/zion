@@ -1,12 +1,14 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { Button } from "react-native-elements";
+import Chat from "../components/Chat";
 
 // a text component and chat feature
 const Content = ({navigation, route}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Content</Text>
-      <Text style={styles.text}>id: {route.params.id}</Text>
+      <Button title="Chat!" onPress={() => navigation.navigate("Chat")} />
    </View>
   );
 }
