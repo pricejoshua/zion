@@ -52,14 +52,7 @@ const ContentList = ({navigation, route}) => {
       <FlatList
         data={remote_content}
         renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.item}
-            onPress={() =>
-              navigation.navigate("Content", { content: item })
-            }
-          >
-            <Text style={styles.title}>{item.title}</Text>
-          </TouchableOpacity>
+            <Button style={styles.item} title={item.title} onPress={() => navigation.navigate("Content", {id: item.id})} />
         )}
         keyExtractor={(item) => item.id}
       />
@@ -73,6 +66,12 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
+    },
+    item: {
+        padding: 20,
+        marginVertical: 8,
+        marginHorizontal: 16,
+        paddingBottom: 10,
     },
 });
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Button } from "react-native-elements";
-import Chat from "../components/Chat";
+import Chat from "./Chat";
 
 // a text component and chat feature
 const Content = ({navigation, route}) => {
@@ -15,8 +15,8 @@ const Content = ({navigation, route}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>remote_content.title</Text>
-      <Text style={styles.text}>remote_content.content</Text>
+      <Text style={styles.text}>{remote_content.title}</Text>
+      <Text style={styles.text}>{remote_content.content}</Text>
       <Button title="Chat!" onPress={() => navigation.navigate("Chat")} />
    </View>
   );
