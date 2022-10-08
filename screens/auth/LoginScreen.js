@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ImageBackground, View, Text, StyleSheet, TouchableOpacity, TextInput, Platform } from 'react-native';
 import { Button } from 'react-native-elements';
 import I18n from 'i18n-js';
+import { Socket } from 'socket.io-client';
 
 const API_URL = Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
 
