@@ -52,7 +52,7 @@ const ContentList = ({navigation, route}) => {
       <FlatList
         data={remote_content}
         renderItem={({ item }) => (
-            <Button style={styles.item} title={item.title} onPress={() => navigation.navigate("Content", {id: item.id})} />
+            <Button style={styles.item} title={item.title} onPress={() => navigation.navigate("ContentScreen", {item: item, screen: "Content", params: {item: item}})} />
         )}
         keyExtractor={(item) => item.id}
       />

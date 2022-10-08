@@ -12,12 +12,11 @@ const Content = ({navigation, route}) => {
   // get content from local file
   const remote_content = require("../assets/mock_data/MOCK_DEVO.json");
 
-
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{remote_content.title}</Text>
-      <Text style={styles.text}>{remote_content.content}</Text>
-      <Button title="Chat!" onPress={() => navigation.navigate("Chat")} />
+      <Text style={styles.text}>{route.params.item.title}</Text>
+      <Text style={styles.text}>{route.params.item.content}</Text>
+      {/* <Button title="Chat!" onPress={() => navigation.navigate("Chat", {params: {id: route.params.item.id}})} /> */}
    </View>
   );
 }
