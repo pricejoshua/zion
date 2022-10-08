@@ -8,6 +8,7 @@ import ProfileScreen from './screens/ProfileScreen';
 import Content from  './screens/Content';
 import AuthScreen from './screens/AuthScreen';
 import Chat from './components/Chat';
+import ContentList from './screens/ContentList';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,7 @@ const MyStack = () => {
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="Content" component={Content} />
         <Stack.Screen name="Chat" component={Chat} />
+        <Stack.Screen name="ContentList" component={ContentList} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -35,11 +37,4 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+

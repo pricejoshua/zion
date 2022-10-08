@@ -43,7 +43,7 @@ const AuthScreen = ({navigation}) => {
     }
 
     const onSubmitHandler = () => {
-        navigation.navigate('Content');
+        navigation.navigate('ContentList');
         const payload = {
             email,
             name,
