@@ -15,8 +15,7 @@ const RegisterScreen = ({navigation, route}) => {
     const [isLogin, setIsLogin] = useState(true);
 
     const onChangeHandler = () => {
-        setIsLogin(!isLogin);
-        setMessage('');
+        navigation.navigate('LoginScreen', {params: {email: email}});
     };
 
     const onLoggedIn = token => {
@@ -43,7 +42,6 @@ const RegisterScreen = ({navigation, route}) => {
     }
 
     const onSubmitHandler = () => {
-        navigation.navigate('ContentList');
         const payload = {
             email,
             name,
@@ -74,6 +72,7 @@ const RegisterScreen = ({navigation, route}) => {
         .catch(err => {
             console.log(err);
         });
+        navigation.navigate('BasicDataScreen');
     };
 
     const getMessage = () => {
@@ -88,14 +87,14 @@ const RegisterScreen = ({navigation, route}) => {
                 <View style={styles.form}>
                     <View style={styles.inputs}>
                         <TextInput style={styles.input} placeholder="Email" autoCapitalize="none" onChangeText={setEmail}></TextInput>
-                        {!isLogin && <TextInput style={styles.input} placeholder="Name" onChangeText={setName}></TextInput>}
+                        <TextInput style={styles.input} placeholder="Name" onChangeText={setName}></TextInput>
                         <TextInput secureTextEntry={true} style={styles.input} placeholder="Password" onChangeText={setPassword}></TextInput>
                         <Text style={[styles.message, {color: isError ? 'red' : 'green'}]}>{message ? getMessage() : null}</Text>
                         <TouchableOpacity style={styles.button} onPress={onSubmitHandler}>
                             <Text style={styles.buttonText}>Done</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.buttonAlt} onPress={onChangeHandler}>
-                            <Text style={styles.buttonAltText}>Register</Text>
+                            <Text style={styles.buttonAltText}>Login</Text>
                         </TouchableOpacity>
                     </View>    
                 </View>

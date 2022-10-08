@@ -2,6 +2,8 @@ import React, { useState, useCallback, useEffect } from 'react'
 import { GiftedChat } from 'react-native-gifted-chat'
 import { io } from 'socket.io-client';
 
+const socket_url = 'http://localhost:3000';
+
 export function Chat() {
   const [messages, setMessages] = useState([]);
 

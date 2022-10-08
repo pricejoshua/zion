@@ -11,11 +11,30 @@ import ContentList from './screens/ContentList';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import LoginScreen from './screens/auth/LoginScreen';
 import RegisterScreen from './screens/auth/RegisterScreen';
+import BasicDataScreen from './screens/register/BasicDataScreen';
 
 
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
+// const prevGetStateForAction = Navigator.router.getStateForAction;
+
+// Navigator.router.getStateForAction = (action, state) => {
+//   // Do not allow to go back from Home
+//   if (action.type === 'Navigation/BACK' && state && state.routes[state.index].routeName === 'Home') {
+//     return null;
+//   }
+
+//   // Do not allow to go back to Login
+//   if (action.type === 'Navigation/BACK' && state) {
+//     const newRoutes = state.routes.filter(r => r.routeName !== 'Login');
+//     const newIndex = newRoutes.length - 1;
+//     return prevGetStateForAction(action, { index: newIndex, routes: newRoutes });
+//   }
+//   return prevGetStateForAction(action, state);
+// };
+
 
 function ContentScreen() {
   return (
@@ -33,28 +52,24 @@ function ContentScreen() {
 const MyStack = () => {
   return (
     <NavigationContainer>
-        <Stack.Screen 
+      <Stack.Navigator>
+      <Stack.Screen 
         name="LoginScreen"
         component={LoginScreen}
         options={{ title: 'Login' }}
         />
-
         <Stack.Screen
           name="RegisterScreen"
           component={RegisterScreen}
           options={{ title: 'Register' }}
         />
-
-      <Stack.Navigator>
         <Stack.Screen
-          name="RegisterScreen"
-          component={RegisterScreen}
-          options={{ title: 'Register' }}
+          name="BasicDataScreen"
+          component={BasicDataScreen}
         />
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="ContentScreen" component={ContentScreen}  />
-        {/* options={({route}) => ({ title: route.params.item.title })} */}
-        <Stack.Screen name="ContentList" component={ContentList} options={{ title: "Devotionals" }}/>
+        <Stack.Screen name="ContentList" component={ContentList} options={{ title: "Devotionals", gestureEnabled: false, headerLeft: () => <></> }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

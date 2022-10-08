@@ -94,7 +94,7 @@ const LoginScreen = ({navigation, route}) => {
                             <Text style={styles.buttonText}>Done</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.buttonAlt} onPress={onChangeHandler}>
-                            <Text style={styles.buttonAltText}>Log In</Text>
+                            <Text style={styles.buttonAltText}>Register</Text>
                         </TouchableOpacity>
                     </View>    
                 </View>
