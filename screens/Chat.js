@@ -1,27 +1,24 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { GiftedChat } from 'react-native-gifted-chat'
+import { io } from 'socket.io-client';
 
 export function Chat() {
   const [messages, setMessages] = useState([]);
 
-  useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: 'Hello developer',
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
-        },
-      },
-    ])
-  }, [])
+  //setup socket
+  const socket = io('http://localhost:3000', { transports: ['websocket'] });
+
+  socket.on('message', message => {
+    setMessages(previousMessages => GiftedChat.append(previousMessages, message));
+  });
+
 
   const onSend = useCallback((messages = []) => {
-    setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
-  }, [])
+    for (let i = 0; i < messages.length; i++) {
+      socket.emit('message', messages[i]);
+    }
+    setMessages(previousMessages => GiftedChat.append(previousMessages, messages));
+  }, []);
 
   return (
     <GiftedChat
@@ -31,7 +28,9 @@ export function Chat() {
         _id: 1,
       }}
     />
-  )
+  );
 }
+
+
 
 export default Chat;
