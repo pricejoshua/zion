@@ -4,13 +4,13 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Login from './screens/Login';
 import ProfileScreen from './screens/ProfileScreen';
 import Content from  './screens/Content';
-import AuthScreen from './screens/AuthScreen';
 import Chat from './screens/Chat';
 import ContentList from './screens/ContentList';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import LoginScreen from './screens/auth/LoginScreen';
+import RegisterScreen from './screens/auth/RegisterScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -34,9 +34,14 @@ const MyStack = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="Auth"
-          component={AuthScreen}
+          name="LoginScreen"
+          component={LoginScreen}
           options={{ title: 'Login' }}
+        />
+        <Stack.Screen
+          name="RegisterScreen"
+          component={RegisterScreen}
+          options={{ title: 'Register' }}
         />
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="ContentScreen" component={ContentScreen}  />

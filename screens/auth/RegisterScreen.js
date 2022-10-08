@@ -4,9 +4,9 @@ import { Button } from 'react-native-elements';
 
 const API_URL = Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
 
-const AuthScreen = ({navigation}) => {
+const RegisterScreen = ({navigation, route}) => {
 
-    const [email, setEmail] = useState('');
+    const [email, setEmail] = useState((route.params ? route.params.email : '') ?? '');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
 
@@ -49,7 +49,7 @@ const AuthScreen = ({navigation}) => {
             name,
             password,
         };
-        fetch(`${API_URL}/${isLogin ? 'login' : 'signup'}`, {
+        fetch(`${API_URL}/'signup'`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -82,21 +82,20 @@ const AuthScreen = ({navigation}) => {
     }
 
     return (
-        <ImageBackground source={require('../assets/images/gradient.jpg')} style={styles.image}>
+        <ImageBackground source={require('../../assets/images/gradient.jpg')} style={styles.image}>
             <View style={styles.card}>
-                <Text style={styles.heading}>{isLogin ? 'Login' : 'Signup'}</Text>
+                <Text style={styles.heading}>Signup</Text>
                 <View style={styles.form}>
                     <View style={styles.inputs}>
                         <TextInput style={styles.input} placeholder="Email" autoCapitalize="none" onChangeText={setEmail}></TextInput>
                         {!isLogin && <TextInput style={styles.input} placeholder="Name" onChangeText={setName}></TextInput>}
                         <TextInput secureTextEntry={true} style={styles.input} placeholder="Password" onChangeText={setPassword}></TextInput>
                         <Text style={[styles.message, {color: isError ? 'red' : 'green'}]}>{message ? getMessage() : null}</Text>
-                        {/* <TouchableOpacity style={styles.button} onPress={onSubmitHandler}> */}
                         <TouchableOpacity style={styles.button} onPress={onSubmitHandler}>
                             <Text style={styles.buttonText}>Done</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.buttonAlt} onPress={onChangeHandler}>
-                            <Text style={styles.buttonAltText}>{isLogin ? 'Sign Up' : 'Log In'}</Text>
+                            <Text style={styles.buttonAltText}>Register</Text>
                         </TouchableOpacity>
                     </View>    
                 </View>
@@ -183,4 +182,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default AuthScreen;
+export default RegisterScreen;
