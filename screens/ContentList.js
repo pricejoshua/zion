@@ -54,6 +54,7 @@ const ContentList = ({navigation, route}) => {
         renderItem={({ item }) => (
             <Button style={styles.item} title={item.title} onPress={() => navigation.navigate("ContentScreen", {item: item, screen: "Content", params: {item: item}})} />
         )}
+        ItemSeparatorComponent={() => <View style={{height: 20}} />}
         keyExtractor={(item) => item.id}
       />
     </View>
@@ -63,15 +64,12 @@ const ContentList = ({navigation, route}) => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
+      marginTop: 20,
     },
     item: {
-        padding: 20,
-        marginVertical: 8,
-        marginHorizontal: 16,
-        paddingBottom: 10,
+        padding: 20
     },
 });
 

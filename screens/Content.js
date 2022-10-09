@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView, SafeAreaView } from "react-native";
 import { Button } from "react-native-elements";
 import Chat from "./Chat";
 
@@ -14,8 +14,12 @@ const Content = ({navigation, route}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{route.params.item.title}</Text>
-      <Text style={styles.text}>{route.params.item.content}</Text>
+        <SafeAreaView style={styles.container}> 
+          <ScrollView >
+            <Text style={styles.text}>{route.params.item.content}</Text>
+          </ScrollView>
+        </SafeAreaView>
+
       {/* <Button title="Chat!" onPress={() => navigation.navigate("Chat", {params: {id: route.params.item.id}})} /> */}
    </View>
   );
@@ -28,7 +32,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     text: {
-        fontSize: 24
+        fontSize: 24,
     }
 })
 
