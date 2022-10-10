@@ -1,6 +1,14 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { GiftedChat } from 'react-native-gifted-chat'
 import { io } from 'socket.io-client';
+import {
+  Pusher,
+  PusherMember,
+  PusherChannel,
+  PusherEvent,
+} from '@pusher/pusher-websocket-react-native';
+import pusherConfig from '../pusher.json';
+
 
 const socket_url = 'http://localhost:3000';
 
@@ -8,7 +16,13 @@ export function Chat() {
   const [messages, setMessages] = useState([]);
 
   //setup socket
-  const socket = io('http://localhost:3000', { transports: ['websocket'] });
+  this.pusher = new Pusher(pusherConfig.key, pusherConfig)
+
+  this.channel = this.pusher.subscribe('messages');
+  this.chatChannel.bind('pusher:subscription_succeeded', () => {
+    console.log('subscription succeeded');
+  });
+
 
   socket.on('message', message => {
     setMessages(previousMessages => GiftedChat.append(previousMessages, message));
