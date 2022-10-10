@@ -1,7 +1,8 @@
 {
-    "appId":"1489188",
-    "key":"e87d46462cb43b520976",
-    "secret":"e30fca319f1c57e66471",
+    "appId":"1489600",
+    "key":"6a9ec7bb6d75618f087f",
+    "secret":"b849db0bad0f1a5d1c41",
     "cluster":"ap1",
-    "encrypted":true
+    "encrypted":true,
+    "logToConsole":true
 }

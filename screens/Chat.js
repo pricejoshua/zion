@@ -1,37 +1,90 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { GiftedChat } from 'react-native-gifted-chat'
 import { io } from 'socket.io-client';
-import {
-  Pusher,
-  PusherMember,
-  PusherChannel,
-  PusherEvent,
-} from '@pusher/pusher-websocket-react-native';
+import Pusher from 'pusher-js';
 import pusherConfig from '../pusher.json';
+import axios from 'axios';
 
 
-const socket_url = 'http://localhost:3000';
+const API_URL = 'https://zion.pricejoshua.com/api';
+//setup socket
+const pusher = new Pusher(pusherConfig.key, pusherConfig)
 
-export function Chat() {
+pusher.connect();
+
+
+
+const Chat = ({ navigation, route }) => {
   const [messages, setMessages] = useState([]);
 
-  //setup socket
-  this.pusher = new Pusher(pusherConfig.key, pusherConfig)
+  useEffect(() => {
+    axios.get(`${API_URL}/messages`).then((response) => {
+      console.log(response.data);
+      setMessages(parseMessages(response.data));
+  })}, []);
 
-  this.channel = this.pusher.subscribe('messages');
-  this.chatChannel.bind('pusher:subscription_succeeded', () => {
-    console.log('subscription succeeded');
+  function parseMessage(message) {
+    console.log(message, typeof message);
+    var id;
+    // check if message id exists
+
+    if (message.id){
+      id = message.id;
+    } else {
+      //generate random id
+      id = Math.random().toString(36).substring(7);
+    }
+
+    if (message.created_at){
+      var date = new Date(message.created_at);
+    } else {
+      var date = new Date();
+    }
+
+    const parsed = {
+      _id: id,
+      text: message.message,
+      createdAt: new Date(date),
+      user: {
+        name: message.username,
+        avatar: "https://placeimg.com/140/140/any",
+      },
+    };
+    console.log('parsed', parsed);
+    return parsed;
+  }
+
+  function parseMessages(messages) {
+    if (Array.isArray(messages)) {
+      return messages.map((message) => parseMessage(message)).sort((a, b) => b.createdAt - a.createdAt);
+    }
+    return [parseMessage(messages)];
+  }
+
+  const chatChannel = pusher.subscribe('message');
+  chatChannel.bind("App\\Events\\MessageEvent", (data) => {
+    // console.log(data);
+    // console.log(typeof data);
+    // convert data to json
+    // const message = JSON.stringify(data);
+    // console.log(message);
+    // console.log(data);
+    str = JSON.stringify(data);
+    // console.log(str);
+    message = JSON.parse(str);
+    // console.log(message);
+    const parsed = parseMessages(message);
+    // console.log(parsed);
+    setMessages(previousMessages => GiftedChat.append(previousMessages, parsed));
   });
-
-
-  socket.on('message', message => {
-    setMessages(previousMessages => GiftedChat.append(previousMessages, message));
-  });
-
 
   const onSend = useCallback((messages = []) => {
     for (let i = 0; i < messages.length; i++) {
-      socket.emit('message', messages[i]);
+      // post a message to the server using axios
+      axios.post(`${API_URL}/messages`, {
+        message: messages[i].text,
+        username: 'Joshua',
+      });
     }
     setMessages(previousMessages => GiftedChat.append(previousMessages, messages));
   }, []);
